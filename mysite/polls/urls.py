@@ -1,23 +1,12 @@
 from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
 
-from . import views
-from .models import Question
-
-
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Question
-        fields = ["id", "question_text", "pub_date"]
-
-
-class QuestionViewSet(viewsets.ModelViewSet):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+from .serializers import QuestionViewSet, ChoiceViewSet
 
 
 router = routers.DefaultRouter()
 router.register(r"questions", QuestionViewSet)
+router.register(r"choices", ChoiceViewSet)
 
 urlpatterns = [
     # path('', views.index, name='index'),
